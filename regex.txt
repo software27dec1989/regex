@@ -1,0 +1,15 @@
+- name: Extract version information from different systems
+  vars:
+    version_patterns:
+      - "system: version ([^,\\]]+)"  # Matches "system: version x.x(...)"
+      - "loader: version ([^,\\]]+)"  # Matches "loader: version x.x(...)"
+  debug:
+    msg: >-
+      {% for line in stdout_lines[0] %}
+        {% for pattern in version_patterns %}
+          {% set match = (line | regex_search(pattern, '\\1')) %}
+          {% if match %}
+            {{ match }}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
