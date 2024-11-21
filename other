@@ -1,0 +1,4 @@
+- set_fact: system_version="{{ stdout_lines | selectattr('0') == 'system' | map(attribute='1') | list }}"
+
+debug:
+  msg: "System version: {{ system_version[0] }}"
