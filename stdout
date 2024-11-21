@@ -1,13 +1,28 @@
-stdout_lines: [
-    [
-       "Cisco Nexus Operating System (NX-OS) Software",
-       "TAC support: http://www.abc.com"
-       "Software",
-       "BIOS: version 2.1.18",
-       "loader: version N/A",
-       "system: version8.4(2f)",
-        "",
-    ]
+- name: Extract system version from stdout_lines
+  hosts: localhost
+  gather_facts: no
+  vars:
+    system_version_pattern: "system: version([^\"]+)"  # Pattern to match 'system' key
+  tasks:
+    - name: Sample output (simulate register)
+      set_fact:
+        version_info:
+          stdout_lines: [
+            [
+               "Cisco Nexus Operating System (NX-OS) Software",
+               "TAC support: http://www.abc.com",
+               "Software",
+               "BIOS: version 2.1.18",
+               "loader: version N/A",
+               "system: version8.4(2f)",
+               "",
+            ]
+          ]
 
-
-]
+    - name: Extract only the system version
+      debug:
+        msg: >-
+          {{ version_info.stdout_lines[0] 
+             | select('search', system_version_pattern) 
+             | map('regex_search', system_version_pattern, '\\1') 
+             | first }}
