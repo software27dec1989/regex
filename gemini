@@ -1,0 +1,4 @@
+- set_fact: system_version="{{ stdout_lines.find(lambda item: item[0] == 'system')[1] }}"
+
+debug:
+  msg: "System version: {{ system_version }}"
