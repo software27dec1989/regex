@@ -1,0 +1,13 @@
+stdout_lines: [
+    [
+       "Cisco Nexus Operating System (NX-OS) Software",
+       "TAC support: http://www.abc.com"
+       "Software",
+       "BIOS: version 2.1.18",
+       "loader: version N/A",
+       "system: version8.4(2f)",
+        "",
+    ]
+
+
+]
